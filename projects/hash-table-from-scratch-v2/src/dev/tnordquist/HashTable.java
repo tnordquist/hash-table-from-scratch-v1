@@ -10,8 +10,33 @@ public class HashTable {
   }
 
 
-  private static Node[] headArr = new Node[3]; // Array that holds linked lists for hash table
+  private static Node[] headArr = new Node[19]; // Array that holds linked lists for hash table
   private static final int N = headArr.length;
+
+  /**
+   * This method uses a key argument to determine the array value which is the head of the linked
+   * list containing the sought after key / value pair.  A runner node runs along the linked nodes
+   * until the specific key is found and then returns the corresponding value.  If the key does not
+   * exist then null is returned.
+   *
+   * @param k key used to find its corresponding value
+   * @return value corresponding to the given key
+   */
+  public String get(String k) {
+
+    int hashcode = Math.abs(k.hashCode()) % N;
+    Node head = headArr[hashcode];
+    Node runner = head;
+
+    while (runner != null) {
+      if (runner.key.equals(k)) {
+        return runner.val;
+      }
+      runner = runner.next;
+    }
+
+    return null;
+  }
 
   /**
    * This method puts a key / value pair into appropriate place in a linked list which itself is
@@ -53,8 +78,11 @@ public class HashTable {
 
   public static void main(String[] args) {
     HashTable hashTable = new HashTable();
-    hashTable.put("cat", "meow");
-    hashTable.put("cat", "purr");
-    hashTable.put("cat", "cuddle");
+    hashTable.put("fat", "cellulite");
+    hashTable.put("dog", "bark");
+    hashTable.put("fat", "grease");
+    hashTable.put("9", "meow");
+
+    System.out.println(hashTable.get("9"));
   }
 }
