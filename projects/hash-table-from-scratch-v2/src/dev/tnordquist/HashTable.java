@@ -138,6 +138,24 @@ public class HashTable {
     return count;
   }
 
+  private boolean contains(String k) {
+    for (Node node : headArr) {
+      if (node != null && node.key.equals(k)) {
+        return true;
+      } else if (node != null) {
+        Node runner = node.next;
+        while (runner != null) {
+          if (runner.key.equals(k)) {
+            return true;
+          } else {
+            runner = runner.next;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
   public static void main(String[] args) {
     HashTable hashTable = new HashTable();
     hashTable.put("fat", "cellulite");
@@ -147,6 +165,7 @@ public class HashTable {
 
     System.out.println("The number of key/value pairs is " + hashTable.size());
     System.out.println(hashTable.get("9"));
+    System.out.println("The table contains the key value \"-9:\" " + hashTable.contains("-9"));
 
     hashTable.remove("fat");
     System.out.println("The number of key/value pairs is " + hashTable.size());
