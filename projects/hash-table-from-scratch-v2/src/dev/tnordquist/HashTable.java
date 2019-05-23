@@ -67,7 +67,21 @@ public class HashTable {
 
     if (head == null) {
       headArr[hashcode] = newNode;
-    } else if (head.val.compareTo(v) >= 0) {
+      return;
+    }
+    try {
+      if ((head.key.equals(k))) {
+        throw new IllegalArgumentException();
+      }
+    } catch (IllegalArgumentException e) {
+      System.out.println();
+      System.out
+          .println(k + " with the associated value of " + v
+              + " cannot be inserted because it already exists as a key ");
+      System.out.println();
+      return;
+    }
+    if (head.val.compareTo(v) >= 0) {
       newNode.next = head;
       headArr[hashcode] = newNode;
     } else {
@@ -84,7 +98,6 @@ public class HashTable {
 
     }
   }
-
 
   private void remove(String k) {
 
@@ -118,7 +131,6 @@ public class HashTable {
       }
     }
   }
-
 
   private int size() {
 
@@ -160,7 +172,9 @@ public class HashTable {
     HashTable hashTable = new HashTable();
     hashTable.put("fat", "cellulite");
     hashTable.put("dog", "bark");
-    hashTable.put("cat", "grease");
+    hashTable.put("dog", "bark");
+    hashTable.put("shnauser", "sparky");
+    hashTable.put("cat", "sparky");
     hashTable.put("9", "meow");
 
     System.out.println("The number of key/value pairs is " + hashTable.size());
