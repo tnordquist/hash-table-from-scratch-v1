@@ -1,5 +1,14 @@
 package dev.tnordquist;
 
+/**
+ * This program implements a typical hashtable which uses the object method hash code to create hash
+ * codes based on a key inputted for insertion into the hash table.  Every key is assigned a
+ * hashcode which is used to create an index position in an array for storing the key / value pair.
+ * A linked list is created for each index position which is not null.  A linked list is needed
+ * because two different values can generate the same hashcode which means multiple keys may need to
+ * be stored at the same index position.  Typical map methods are available: get, remove, contains,
+ * size, put.
+ */
 public class HashTable {
 
   private class Node {
@@ -22,7 +31,7 @@ public class HashTable {
    * @param k key used to find its corresponding value
    * @return value corresponding to the given key
    */
-  public String get(String k) {
+  private String get(String k) {
 
     int hashcode = Math.abs(k.hashCode()) % N;
     Node head = headArr[hashcode];
@@ -76,6 +85,7 @@ public class HashTable {
     }
   }
 
+
   private void remove(String k) {
 
     int hC = Math.abs(k.hashCode()) % N;
@@ -93,8 +103,8 @@ public class HashTable {
     Node prev = head;
     Node runner = head.next;
     while (runner != null) {
-      if(runner.key.equals(k)){
-        if(runner.next==null){
+      if (runner.key.equals(k)) {
+        if (runner.next == null) {
           prev.next = null;
           return;
         } else {
@@ -109,6 +119,25 @@ public class HashTable {
     }
   }
 
+
+  private int size() {
+
+    int count = 0;
+
+    for (Node node : headArr) {
+
+      if (node != null) {
+        count++;
+        Node runner = node.next;
+        while (runner != null) {
+          count++;
+          runner = runner.next;
+        }
+      }
+    }
+    return count;
+  }
+
   public static void main(String[] args) {
     HashTable hashTable = new HashTable();
     hashTable.put("fat", "cellulite");
@@ -116,11 +145,13 @@ public class HashTable {
     hashTable.put("cat", "grease");
     hashTable.put("9", "meow");
 
+    System.out.println("The number of key/value pairs is " + hashTable.size());
     System.out.println(hashTable.get("9"));
 
     hashTable.remove("fat");
-
-
+    System.out.println("The number of key/value pairs is " + hashTable.size());
     System.out.println(hashTable.get("cat"));
+    hashTable.put("roger", "rabbit");
+    System.out.println("The number of key/value pairs is " + hashTable.size());
   }
 }
