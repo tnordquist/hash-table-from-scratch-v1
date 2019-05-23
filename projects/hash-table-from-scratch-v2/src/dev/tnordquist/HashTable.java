@@ -45,7 +45,7 @@ public class HashTable {
    * @param k key value to be inserted into node of linked list of appropriate array index
    * @param v value corresponding to the key
    */
-  public void put(String k, String v) {
+  private void put(String k, String v) {
 
     Node newNode;
     newNode = new Node();
@@ -76,13 +76,51 @@ public class HashTable {
     }
   }
 
+  private void remove(String k) {
+
+    int hC = Math.abs(k.hashCode()) % N;
+    Node head = headArr[hC];
+
+    if (headArr[hC] == null) {
+      return;
+    }
+
+    if (headArr[hC].key.equals(k)) {
+      headArr[hC] = headArr[hC].next;
+      return;
+    }
+
+    Node prev = head;
+    Node runner = head.next;
+    while (runner != null) {
+      if(runner.key.equals(k)){
+        if(runner.next==null){
+          prev.next = null;
+          return;
+        } else {
+          prev.next = runner.next;
+          runner = null;
+          return;
+        }
+      } else {
+        prev = runner;
+        runner = runner.next;
+      }
+    }
+  }
+
   public static void main(String[] args) {
     HashTable hashTable = new HashTable();
     hashTable.put("fat", "cellulite");
     hashTable.put("dog", "bark");
-    hashTable.put("fat", "grease");
+    hashTable.put("cat", "grease");
     hashTable.put("9", "meow");
 
     System.out.println(hashTable.get("9"));
+
+    hashTable.remove("fat");
+
+
+    System.out.println(hashTable.get("cat"));
   }
 }

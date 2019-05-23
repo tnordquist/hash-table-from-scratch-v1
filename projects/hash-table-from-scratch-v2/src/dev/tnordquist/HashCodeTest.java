@@ -7,7 +7,7 @@ public class HashCodeTest {
     String cat = "cat";
     String fat = "fat";
     String dog = "dog";
-    String tac = "tac";
+    String tac = "9";
     String zero = "0";
     String catcat = "catcat";
     String rumple = "9";
